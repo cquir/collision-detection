@@ -35,10 +35,3 @@ def collision_detection(r0vec,r1vec,pos1vec,pos2vec):
 
     # collision if collision along all normal vectors
     return all(collides), cs
-
-r0vec = 2*numpy.pi*numpy.random.random(3)
-r1vec = 2*numpy.pi*numpy.random.random(3)
-pos1vec = numpy.sqrt(3)*numpy.random.random(3)
-pos2vec = numpy.sqrt(3)*numpy.random.random(3)
-
-collide, cs = collision_detection(r0vec,r1vec,pos1vec,pos2vec)
