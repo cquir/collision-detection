@@ -5,10 +5,10 @@ import numpy
 # random initialization
 r0vec = 2*numpy.pi*numpy.random.random(3)
 r1vec = 2*numpy.pi*numpy.random.random(3)
+pos0vec = numpy.sqrt(3)*numpy.random.random(3)
 pos1vec = numpy.sqrt(3)*numpy.random.random(3)
-pos2vec = numpy.sqrt(3)*numpy.random.random(3)
 
-collide, cs = collide.collision_detection(r0vec,r1vec,pos1vec,pos2vec)
+collide, cs = collide.collision_detection(r0vec,r1vec,pos0vec,pos1vec)
 
 # define graph
 pid = -1
