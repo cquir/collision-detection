@@ -3,12 +3,13 @@ import collide
 import numpy
 
 # random initialization
-r0vec = 2*numpy.pi*numpy.random.random(3)
-r1vec = 2*numpy.pi*numpy.random.random(3)
 pos0vec = numpy.sqrt(3)*numpy.random.random(3)
 pos1vec = numpy.sqrt(3)*numpy.random.random(3)
+r0vec = 2*numpy.pi*numpy.random.random(3)
+r1vec = 2*numpy.pi*numpy.random.random(3)
 
-collide, cs = collide.collision_detection(r0vec,r1vec,pos0vec,pos1vec)
+# check if there is a collision + get corner position of cubes
+res, cs = collide.collision_detection(pos0vec,pos1vec,r0vec,r1vec)
 
 # define graph
 pid = -1
@@ -45,10 +46,7 @@ for x0,y0,x1,y1,xlab,ylab in zip(x0s,y0s,x1s,y1s,xlabs,ylabs):
                 ax.plot(x[[i,j]],y[[i,j]],color=col)
     fix_ax(ax,xlab,ylab)
     if pid == 1:
-        ax.set_title(r'collide = %s'%collide)
+        ax.set_title(r'collide = %s'%res)
 
 # save graph
 gridfig.fig.savefig('test.pdf',bbox_inches='tight')
-
-
-

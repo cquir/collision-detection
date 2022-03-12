@@ -4,11 +4,11 @@ import numpy
 # n is unit vector so no need to divide by its magnitude
 scalar_proj = lambda v,n: v[0]*n[0]+v[1]*n[1]+v[2]*n[2]
 
-def collision_detection(r0vec,r1vec,pos1vec,pos2vec):
+def collision_detection(pos0vec,pos1vec,r0vec,r1vec):
     # rotation vector + position of center of cubes
     r0 = R.from_rotvec(r0vec)
     r1 = R.from_rotvec(r1vec)
-    pos = numpy.array([pos1vec,pos2vec])
+    pos = numpy.array([pos0vec,pos1vec])
 
     # corners + normal vectors of cubes (prior to rotation + translation)
     r = 1.; j = numpy.arange(8)
