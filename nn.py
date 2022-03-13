@@ -1,10 +1,10 @@
 import torch
 
-class NeuralNetwork(nn.Module):
+class NeuralNetwork(torch.nn.Module):
     def __init__(self):
         super(NeuralNetwork,self).__init__()
         self.fc1 = torch.nn.Linear(4*3,200)
-        self.batchnorm1 = nn.BatchNorm1d(200)
+        self.batchnorm1 = torch.nn.BatchNorm1d(200)
         self.fc2 = torch.nn.Linear(200,100)
         self.batchnorm2 = torch.nn.BatchNorm1d(100)
         self.fc3 = torch.nn.Linear(100,1)
