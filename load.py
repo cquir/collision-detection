@@ -3,8 +3,8 @@ import torch
 
 class Dataset(torch.utils.data.Dataset):
     def __init__(self,label):
-        X = numpy.loadtxt('data/X%s.dat'%label)
-        Y = numpy.loadtxt('data/Y%s.dat'%label)
+        X = numpy.loadtxt('data/X%s.dat'%label).astype(numpy.float32)
+        Y = numpy.loadtxt('data/Y%s.dat'%label).astype(numpy.float32)
         self.data = (X,Y)
     def __len__(self):
         return len(self.data[1])
