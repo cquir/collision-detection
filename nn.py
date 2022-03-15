@@ -1,13 +1,13 @@
 import torch
 
 class NeuralNetwork(torch.nn.Module):
-    def __init__(self):
+    def __init__(self,h):
         super(NeuralNetwork,self).__init__()
-        self.fc1 = torch.nn.Linear(4*3,200)
-        self.batchnorm1 = torch.nn.BatchNorm1d(200)
-        self.fc2 = torch.nn.Linear(200,100)
-        self.batchnorm2 = torch.nn.BatchNorm1d(100)
-        self.fc3 = torch.nn.Linear(100,1)
+        self.fc1 = torch.nn.Linear(4*3,h)
+        self.batchnorm1 = torch.nn.BatchNorm1d(h)
+        self.fc2 = torch.nn.Linear(h,h)
+        self.batchnorm2 = torch.nn.BatchNorm1d(h,h)
+        self.fc3 = torch.nn.Linear(h,1)
 
     def forward(self,x):
         x = torch.nn.functional.relu(self.fc1(x))
@@ -17,6 +17,4 @@ class NeuralNetwork(torch.nn.Module):
         x = self.batchnorm2(x)
         x = torch.nn.functional.dropout(x,training=self.training)
         x = self.fc3(x)
-        x = torch.nn.functional.log_softmax(x,dim=1)
         return x
-
