@@ -1,8 +1,5 @@
+import scipy.spatial
 import numpy
-import scipy
-
-# n is unit vector so no need to divide by its magnitude
-scalar_proj = lambda v,n: v[0]*n[0]+v[1]*n[1]+v[2]*n[2]
 
 def collision_detection(pos0vec,pos1vec,r0vec,r1vec):
     # rotation vector + position of center of cubes
@@ -27,11 +24,19 @@ def collision_detection(pos0vec,pos1vec,r0vec,r1vec):
 
     # determine if there is a collision along each normal vector
     collides = []
-    for i,n in enumerate(numpy.concatenate(ns)):
-        prjs = numpy.array([scalar_proj(c,n) for c in numpy.concatenate(cs)])
-        prjs = prjs.reshape(2,8)
-        pmin = min(prjs[0]); pmax = max(prjs[0])
-        collides.append(sum([pmin <= p <= pmax for p in prjs[1]]) > 0)
+    for n in numpy.concatenate(ns):
+        prjs = numpy.dot(numpy.concatenate(cs),n)
+        pmin = min(prjs[:8]); pmax = max(prjs[:8])
+        collides.append(len(prjs[8:][(prjs[8:] >= pmin) & (prjs[8:] <= pmax)]) > 0)
 
     # collision if collision along all normal vectors
     return all(collides), cs
+
+numpy.random.seed(0)
+for i in range(20):
+    pos0vec = numpy.sqrt(3)*numpy.random.random(3)
+    pos1vec = numpy.sqrt(3)*numpy.random.random(3)
+    r0vec = 2*numpy.pi*numpy.random.random(3)
+    r1vec = 2*numpy.pi*numpy.random.random(3)
+    res, cs = collision_detection(pos0vec,pos1vec,r0vec,r1vec)
+
