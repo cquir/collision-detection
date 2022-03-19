@@ -30,13 +30,4 @@ def collision_detection(pos0vec,pos1vec,r0vec,r1vec):
         collides.append(len(prjs[8:][(prjs[8:] >= pmin) & (prjs[8:] <= pmax)]) > 0)
 
     # collision if collision along all normal vectors
-    return all(collides), cs
-
-numpy.random.seed(0)
-for i in range(20):
-    pos0vec = numpy.sqrt(3)*numpy.random.random(3)
-    pos1vec = numpy.sqrt(3)*numpy.random.random(3)
-    r0vec = 2*numpy.pi*numpy.random.random(3)
-    r1vec = 2*numpy.pi*numpy.random.random(3)
-    res, cs = collision_detection(pos0vec,pos1vec,r0vec,r1vec)
-
+    return cs, all(collides)

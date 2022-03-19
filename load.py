@@ -15,5 +15,5 @@ def load_data(args):
     train_data = Dataset('train')
     val_data = Dataset('validation')
     train_loader = torch.utils.data.DataLoader(train_data,batch_size=args['batch_size'],shuffle=True)
-    val_loader = torch.utils.data.DataLoader(val_data,batch_size=args['batch_size'],shuffle=True)
+    val_loader = torch.utils.data.DataLoader(val_data,batch_size=args['test_batch_size'],shuffle=True)
     return train_loader,val_loader

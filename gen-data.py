@@ -13,7 +13,7 @@ def gen_data(N,label):
         r1vec = 2*numpy.pi*numpy.random.random(3)
 
         # check if there is a collision 
-        res, cs = collide.collision_detection(pos0vec,pos1vec,r0vec,r1vec)
+        cs, res = collide.collision_detection(pos0vec,pos1vec,r0vec,r1vec)
 
         # rescale inputs
         pos0vec = pos0vec/numpy.sqrt(3)-0.5
@@ -22,7 +22,7 @@ def gen_data(N,label):
         r1vec = r1vec/(2*numpy.pi)-0.5
         
         # add results to arrays to save later
-        X.append(numpy.concatenate([pos0vec,pos1vec,r0vec,r1vec]))
+        X.append(cs.flatten())
         Y.append(int(res))
 
     # save data
