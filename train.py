@@ -6,10 +6,10 @@ import os
 
 def evaluate_model(args,train_loader,val_loader):
 
-    model = nn.NeuralNetwork(args['h']) 
+    model = nn.NeuralNetwork(args['i'],args['h'],args['hidden_layers'],args['dropout']) 
     criterion = torch.nn.BCEWithLogitsLoss()
-    optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
-    #optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
+    #optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
+    optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
 
     # train the neural network 
     def train(epoch):
@@ -25,10 +25,9 @@ def evaluate_model(args,train_loader,val_loader):
                     epoch, batch_idx*len(data),len(train_loader.dataset),
                     100.*batch_idx/len(train_loader)))
                 sys.stdout.flush()
-        return loss.item()
 
     # evaluate the neural network's performance
-    def test(test_loader,dataset_label):
+    def test(test_loader,dataset_label,batch_size):
         model.eval()
         test_loss = 0
         correct = 0
@@ -38,8 +37,8 @@ def evaluate_model(args,train_loader,val_loader):
             # sigmoid layer normally included in criterion
             pred = torch.round(torch.sigmoid(output))
             correct += (pred.squeeze(1) == label).sum().item()
-        test_loss *= args['test_batch_size']/len(test_loader.dataset) 
-        print('\n{} set: Average loss: {:.4f}, Accuracy: {:.1f}%'.format(
+        test_loss *= batch_size/len(test_loader.dataset) 
+        print('{} set: Average loss: {:.4f}, Accuracy: {:.1f}%'.format(
             dataset_label,test_loss,100.*correct/len(test_loader.dataset)))
         sys.stdout.flush()
         return test_loss, correct/len(test_loader.dataset)
@@ -48,12 +47,15 @@ def evaluate_model(args,train_loader,val_loader):
     val_loss = numpy.zeros_like(train_loss)
     val_accuracy = numpy.zeros_like(train_loss)
     epochs = range(1,args['epochs']+1)
-    best_score = None; early_stop = False
+    best_score = None; early_stop = False; counter = 0
 
     for epoch in epochs:
 
-        train_loss[epoch-1] = train(epoch)
-        val_loss[epoch-1], val_accuracy[epoch-1] = test(val_loader,'Validation')
+        train(epoch)
+        print(''); sys.stdout.flush()
+        train_loss[epoch-1], _ = test(train_loader,'Training',args['batch_size'])
+        val_loss[epoch-1], val_accuracy[epoch-1] = test(val_loader,'Validation',args['test_batch_size'])
+        print(''); sys.stdout.flush()
 
         # early stopping
         if best_score is None:
@@ -68,7 +70,7 @@ def evaluate_model(args,train_loader,val_loader):
             best_score = val_loss[epoch-1]
             counter = 0
         if early_stop:
-            print('Early Stopping')
+            print(f'Early Stopping!\n')
             sys.stdout.flush()
             break
         
