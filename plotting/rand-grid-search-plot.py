@@ -8,8 +8,8 @@ gridfig = phymcmc.plot.grid_plot((10,5),wspace=0.4,rwidth=3.9)
 
 # get min val loss for each set of hyperparameters to sort
 roots = []; files_arr = []; min_val_loss = []
-for root, dirs, files in os.walk('../data/'):
-    if root == '../data/':
+for root, dirs, files in os.walk('../data/results-w-balanced-dataset/'):
+    if root == '../data/results-w-balanced-dataset/':
         continue
     roots.append(root)
     files_arr.append(files)
@@ -36,11 +36,11 @@ for min_val_loss, root, files in sorted(zip(min_val_loss,roots,files_arr)):
     [_,h,_,lr,_,momentum,_,_,batch_size] = root.split('/')[-1].split('_')
     s = f'h = {h},\nlr = {lr},\nmomentum = {momentum},\nbatch size = {batch_size}'
     ax.text(0.1,0.9,s,ha='left',va='top',transform=ax.transAxes,size='small')
-    if pid // 5 == len(roots) // 5:
+    if pid // 5 == 9:
         ax.set_xlabel('Epochs')
     if pid % 5 == 0:
         ax.set_ylabel('Loss')
     ax.set_ylim(0,1.1)
 
 # save graph
-gridfig.fig.savefig('graphs/rand-grid-search.pdf',bbox_inches='tight')
+gridfig.fig.savefig('graphs/rand-grid-search-w-balanced-dataset.pdf',bbox_inches='tight')

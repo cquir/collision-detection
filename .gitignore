@@ -1,2 +1,4 @@
 __pycache__/*
-test.pdf
+plotting/graphs/*
+data/*
+nohup.out

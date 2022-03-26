@@ -6,7 +6,10 @@ import os
 
 def evaluate_model(args,train_loader,val_loader):
 
-    model = nn.NeuralNetwork(args['i'],args['h'],args['hidden_layers'],args['dropout']) 
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    model = nn.NeuralNetwork(args['i'],args['h'],args['hidden_layers'],args['dropout']).to(device)
     criterion = torch.nn.BCEWithLogitsLoss()
     #optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
     optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
@@ -15,6 +18,7 @@ def evaluate_model(args,train_loader,val_loader):
     def train(epoch):
         model.train()  
         for batch_idx, (data,label) in enumerate(train_loader):
+            data, label = data.to(device), label.to(device)
             optimizer.zero_grad()
             output = model(data)
             loss = criterion(output,label.unsqueeze(1))
@@ -31,47 +35,56 @@ def evaluate_model(args,train_loader,val_loader):
         model.eval()
         test_loss = 0
         correct = 0
-        for data,label in test_loader:
-            output = model(data)
-            test_loss += criterion(output,label.unsqueeze(1)).item()
-            # sigmoid layer normally included in criterion
-            pred = torch.round(torch.sigmoid(output))
-            correct += (pred.squeeze(1) == label).sum().item()
+        with torch.no_grad():
+            for data,label in test_loader:
+                data, label = data.to(device), label.to(device)
+                output = model(data)
+                test_loss += criterion(output,label.unsqueeze(1)).item()
+                # sigmoid layer normally included in criterion
+                pred = torch.round(torch.sigmoid(output))
+                correct += (pred.squeeze(1) == label).sum().item()
         test_loss *= batch_size/len(test_loader.dataset) 
         print('{} set: Average loss: {:.4f}, Accuracy: {:.1f}%'.format(
             dataset_label,test_loss,100.*correct/len(test_loader.dataset)))
         sys.stdout.flush()
         return test_loss, correct/len(test_loader.dataset)
 
-    train_loss = numpy.zeros((args['epochs'],))
-    val_loss = numpy.zeros_like(train_loss)
-    val_accuracy = numpy.zeros_like(train_loss)
+    train_losses = []; val_losses = []; val_accuracies = []
     epochs = range(1,args['epochs']+1)
     best_score = None; early_stop = False; counter = 0
+
+    test(train_loader,'Training',args['batch_size'])
+    test(val_loader,'Validation',args['test_batch_size'])
+    print(''); sys.stdout.flush()
 
     for epoch in epochs:
 
         train(epoch)
         print(''); sys.stdout.flush()
-        train_loss[epoch-1], _ = test(train_loader,'Training',args['batch_size'])
-        val_loss[epoch-1], val_accuracy[epoch-1] = test(val_loader,'Validation',args['test_batch_size'])
+        train_loss, _ = test(train_loader,'Training',args['batch_size'])
+        val_loss, val_accuracy = test(val_loader,'Validation',args['test_batch_size'])
+        train_losses.append(train_loss); val_losses.append(val_loss); val_accuracies.append(val_accuracy)
         print(''); sys.stdout.flush()
 
         # early stopping
-        if best_score is None:
-            best_score = val_loss[epoch-1]
-        elif val_loss[epoch-1] >= best_score:
-            counter += 1
-            print(f'Early stopping counter: {counter}\n')
-            sys.stdout.flush()
-            if counter >= args['patience']:
-                early_stop = True
-        else:
-            best_score = val_loss[epoch-1]
-            counter = 0
-        if early_stop:
-            print(f'Early Stopping!\n')
-            sys.stdout.flush()
-            break
+        if args['early_stopping']:
+            if best_score is None:
+                best_score = val_loss[epoch-1]
+            elif val_loss[epoch-1] >= best_score:
+                counter += 1
+                print(f'Early stopping counter: {counter}\n')
+                sys.stdout.flush()
+                if counter >= args['patience']:
+                    early_stop = True
+            else:
+                best_score = val_loss[epoch-1]
+                if args['save']:
+                    ID = args['ID']
+                    torch.save(model.state_dict(),'data/results/{ID}/model_{ID}.pt')
+                counter = 0
+            if early_stop:
+                print(f'Early Stopping!\n')
+                sys.stdout.flush()
+                break
         
-    return model, train_loss, val_loss, val_accuracy
+    return model, train_losses, val_losses, val_accuracies
