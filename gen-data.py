@@ -45,7 +45,8 @@ def gen_data(N,label):
         numpy.savetxt(f'data/datasets/X{label}.dat',X)
         numpy.savetxt(f'data/datasets/Y{label}.dat',Y,fmt='%i')
 
-gen_data(100,'toy')
-gen_data(6.4*1e5,'train')
-gen_data(1.6*1e5,'validation')
-gen_data(2e5,'test')
+#gen_data(100,'toy')
+#gen_data(6.4*1e5,'train')
+#gen_data(1.6*1e5,'validation')
+#gen_data(2e5,'test')
+gen_data(2*64,'tiny_train')

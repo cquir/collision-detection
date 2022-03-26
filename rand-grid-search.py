@@ -19,7 +19,8 @@ args = dict(
     epochs = 200,
     patience = 30,
     seed = 0,
-    save = False
+    save = False,
+    validation = False
 )
 
 torch.manual_seed(args['seed'])

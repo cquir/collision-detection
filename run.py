@@ -18,8 +18,9 @@ def run(args):
             subprocess.call(f'mkdir data/results/{ID}',shell=True)
         header = 'args = {}'.format(repr(args))
         numpy.savetxt(f'data/results/{ID}/train_loss_{ID}.dat',train_losses,header=header)
-        numpy.savetxt(f'data/results/{ID}/val_loss_{ID}.dat',val_losses,header=header)
         numpy.savetxt(f'data/results/{ID}/train_accuracy_{ID}.dat',train_accuracies,header=header)
-        numpy.savetxt(f'data/results/{ID}/val_accuracy_{ID}.dat',val_accuracies,header=header)
+        if args['validation']:
+            numpy.savetxt(f'data/results/{ID}/val_loss_{ID}.dat',val_losses,header=header)
+            numpy.savetxt(f'data/results/{ID}/val_accuracy_{ID}.dat',val_accuracies,header=header)
         if not args['early_stopping']:
             torch.save(model.state_dict(),f'data/results/{ID}/model_{ID}.pt')
