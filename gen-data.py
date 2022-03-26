@@ -2,6 +2,11 @@ import scipy.spatial
 import collide
 import numpy
 
+if 'data' not in os.listdir('./'):
+    subprocess.call(f'mkdir data/',shell=True)
+if 'results' not in os.listdir('data/'):
+    subprocess.call(f'mkdir data/datasets/',shell=True)
+
 # convert 3 random uniform numbers between 0 and 1 (u,v,w) to a random uniform quaternion
 a = lambda u,v: numpy.sqrt(1-u)*numpy.sin(2*numpy.pi*v)
 b = lambda u,v: numpy.sqrt(1-u)*numpy.cos(2*numpy.pi*v)
@@ -46,7 +51,7 @@ def gen_data(N,label):
         numpy.savetxt(f'data/datasets/Y{label}.dat',Y,fmt='%i')
 
 #gen_data(100,'toy')
-#gen_data(6.4*1e5,'train')
-#gen_data(1.6*1e5,'validation')
-#gen_data(2e5,'test')
-gen_data(2*64,'tiny_train')
+gen_data(6.4*1e5,'validation')
+gen_data(1.6*1e5,'validation')
+gen_data(2e5,'test')
+#gen_data(2*64,'tiny_train')
