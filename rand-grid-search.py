@@ -18,16 +18,17 @@ args = dict(
 torch.manual_seed(args['seed'])
 numpy.random.seed(args['seed'])
 
+rand_idx = lambda ln: numpy.nonzero(numpy.random.multinomial(n=1,pvals=ln*[1./ln]))[0][0]
+
 N = 100
 for i in range(N):
 
     # update + print hyperparameters
     args['hidden_layers'] = int(sys.argv[1])
-    idx = numpy.nonzero(numpy.random.multinomial(n=1,pvals=4*[0.25]))[0][0]
-    args['h'] = [50,100,200,500][idx]
+    args['h'] = [50,100,200,500][rand_idx(4)]
     args['lr'] = 10**numpy.random.uniform(low=-5,high=-1)
-    idx = numpy.nonzero(numpy.random.multinomial(n=1,pvals=5*[0.2]))[0][0]
-    args['batch_size'] = [32,64,128,256,512][idx]
+    args['batch_size'] = [32,64,128,256,512][rand_idx(5)]
+
     args['ID'] =  'hidden_layers_{}_h_{}_lr_{:.1e}_batch_size_{}'.format(
             args['hidden_layers'],args['h'],args['lr'],args['batch_size']) 
 
