@@ -7,6 +7,8 @@ if 'data' not in os.listdir('./'):
 if 'results' not in os.listdir('data/'):
     subprocess.call(f'mkdir data/datasets/',shell=True)
 
+numpy.random.seed(0)
+
 # convert 3 random uniform numbers between 0 and 1 (u,v,w) to a random uniform quaternion
 a = lambda u,v: numpy.sqrt(1-u)*numpy.sin(2*numpy.pi*v)
 b = lambda u,v: numpy.sqrt(1-u)*numpy.cos(2*numpy.pi*v)
