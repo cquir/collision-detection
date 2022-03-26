@@ -1,4 +1,5 @@
 __pycache__/*
 plotting/*
 data/*
+wandb/*
 nohup.out

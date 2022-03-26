@@ -49,7 +49,8 @@ def evaluate_model(args,train_loader,val_loader):
         sys.stdout.flush()
         return test_loss, correct/len(test_loader.dataset)
 
-    train_losses = []; val_losses = []; val_accuracies = []
+    train_losses = []; val_losses = [] 
+    val_accuracies = []; train_accuracies = []
     epochs = range(1,args['epochs']+1)
     best_score = None; early_stop = False; counter = 0
 
@@ -61,9 +62,10 @@ def evaluate_model(args,train_loader,val_loader):
 
         train(epoch)
         print(''); sys.stdout.flush()
-        train_loss, _ = test(train_loader,'Training',args['batch_size'])
+        train_loss, train_accuracy = test(train_loader,'Training',args['batch_size'])
         val_loss, val_accuracy = test(val_loader,'Validation',args['test_batch_size'])
-        train_losses.append(train_loss); val_losses.append(val_loss); val_accuracies.append(val_accuracy)
+        train_losses.append(train_loss); val_losses.append(val_loss) 
+        val_accuracies.append(val_accuracy); train_accuracies.append(train_accuracy)
         print(''); sys.stdout.flush()
 
         # early stopping
@@ -87,4 +89,4 @@ def evaluate_model(args,train_loader,val_loader):
                 sys.stdout.flush()
                 break
         
-    return model, train_losses, val_losses, val_accuracies
+    return model, train_losses, val_losses, train_accuracies, val_accuracies

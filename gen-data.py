@@ -16,7 +16,7 @@ def uniform_quaternion():
 # generate data
 def gen_data(N,label):
 
-    X = []; Y = []
+    Xtoy = []; X = []; Y = []
 
     for i in range(int(N)):
         # random position + quaternion vectors for each cube
@@ -39,8 +39,10 @@ def gen_data(N,label):
     X = (X-numpy.mean(X,axis=0))/numpy.std(X,axis=0)
 
     # save data
-    numpy.savetxt(f'data/datasets/X{label}.dat',X)
-    if label != 'toy':
+    if label == 'toy':
+        numpy.savetxt(f'data/datasets/X{label}.dat',Xtoy)
+    else:
+        numpy.savetxt(f'data/datasets/X{label}.dat',X)
         numpy.savetxt(f'data/datasets/Y{label}.dat',Y,fmt='%i')
 
 gen_data(100,'toy')
