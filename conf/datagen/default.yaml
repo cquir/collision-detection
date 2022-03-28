@@ -1,0 +1,18 @@
+seed: 1000
+
+columns:
+- pos0_x
+- pos0_y
+- pos0_z
+- pos1_x
+- pos1_y
+- pos1_z
+- quat0_a
+- quat0_b
+- quat0_c
+- quat0_d
+- quat1_a
+- quat1_b
+- quat1_c
+- quat1_d
+- collides
