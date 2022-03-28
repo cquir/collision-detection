@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "rand-grid-search.py", line 43, in <module>
+    run.run(args)
+  File "/home/cquir/Documents/collision-detection/src/run.py", line 11, in run
+    train_loader,val_loader = load.load_data(args)
+  File "/home/cquir/Documents/collision-detection/src/load.py", line 16, in load_data
+    train_data = Dataset('train',bdir)
+  File "/home/cquir/Documents/collision-detection/src/load.py", line 6, in __init__
+    X = numpy.loadtxt(f'{bdir}/data/datasets/X{label}.dat').astype(numpy.float32)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 1067, in loadtxt
+    fh = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise IOError("%s not found." % path)
+OSError: ../../data/datasets/Xtrain.dat not found.
+Traceback (most recent call last):
+  File "rand-grid-search.py", line 43, in <module>
+    run.run(args)
+  File "/home/cquir/Documents/collision-detection/src/run.py", line 11, in run
+    train_loader,val_loader = load.load_data(args)
+  File "/home/cquir/Documents/collision-detection/src/load.py", line 16, in load_data
+    train_data = Dataset('train',bdir)
+  File "/home/cquir/Documents/collision-detection/src/load.py", line 6, in __init__
+    X = numpy.loadtxt(f'{bdir}/data/datasets/X{label}.dat').astype(numpy.float32)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 1067, in loadtxt
+    fh = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/cquir/.local/lib/python3.8/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise IOError("%s not found." % path)
+OSError: ../../data/datasets/Xtrain.dat not found.

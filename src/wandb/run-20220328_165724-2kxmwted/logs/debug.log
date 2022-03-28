@@ -1,0 +1,25 @@
+2022-03-28 16:57:24,978 INFO    MainThread:74236 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 16:57:24,979 INFO    MainThread:74236 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/src/wandb/settings
+2022-03-28 16:57:24,979 INFO    MainThread:74236 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 16:57:24,979 INFO    MainThread:74236 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'src/rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 16:57:24,980 INFO    MainThread:74236 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/src/wandb/run-20220328_165724-2kxmwted/logs/debug.log
+2022-03-28 16:57:24,980 INFO    MainThread:74236 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/src/wandb/run-20220328_165724-2kxmwted/logs/debug-internal.log
+2022-03-28 16:57:24,981 INFO    MainThread:74236 [wandb_init.py:init():439] calling init triggers
+2022-03-28 16:57:24,981 INFO    MainThread:74236 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 1000, 'save': True, 'validation': False, 'training_examples': 640000.0, 'hidden_layers': 2, 'h': 500, 'lr': 2.2132008552811117e-06, 'batch_size': 64}
+2022-03-28 16:57:24,981 INFO    MainThread:74236 [wandb_init.py:init():492] starting backend
+2022-03-28 16:57:24,982 INFO    MainThread:74236 [backend.py:_multiprocessing_setup():99] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2022-03-28 16:57:24,999 INFO    MainThread:74236 [backend.py:ensure_launched():219] starting backend process...
+2022-03-28 16:57:25,005 INFO    MainThread:74236 [backend.py:ensure_launched():224] started backend process with pid: 74247
+2022-03-28 16:57:25,006 INFO    MainThread:74236 [wandb_init.py:init():501] backend started and connected
+2022-03-28 16:57:25,011 INFO    MainThread:74236 [wandb_init.py:init():565] updated telemetry
+2022-03-28 16:57:25,025 INFO    MainThread:74236 [wandb_init.py:init():596] communicating run to backend with 30 second timeout
+2022-03-28 16:57:25,936 INFO    MainThread:74236 [wandb_run.py:_on_init():1759] communicating current version
+2022-03-28 16:57:26,018 INFO    MainThread:74236 [wandb_run.py:_on_init():1763] got version response 
+2022-03-28 16:57:26,018 INFO    MainThread:74236 [wandb_init.py:init():625] starting run threads in backend
+2022-03-28 16:57:26,047 INFO    MainThread:74236 [wandb_run.py:_console_start():1733] atexit reg
+2022-03-28 16:57:26,047 INFO    MainThread:74236 [wandb_run.py:_redirect():1606] redirect: SettingsConsole.REDIRECT
+2022-03-28 16:57:26,048 INFO    MainThread:74236 [wandb_run.py:_redirect():1611] Redirecting console.
+2022-03-28 16:57:26,049 INFO    MainThread:74236 [wandb_run.py:_redirect():1667] Redirects installed.
+2022-03-28 16:57:26,050 INFO    MainThread:74236 [wandb_init.py:init():664] run started, returning control to user process
+2022-03-28 16:57:40,916 INFO    MainThread:74236 [wandb_watch.py:watch():47] Watching

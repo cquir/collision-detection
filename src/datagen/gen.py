@@ -45,19 +45,19 @@ def data(N,label):
         Y.append(int(res))
 
     # rescale inputs 
-    numpy.savetxt(f'data/datasets/X{label}_mean.dat',numpy.mean(X,axis=0))
-    numpy.savetxt(f'data/datasets/X{label}_std.dat',numpy.std(X,axis=0))
+    numpy.savetxt(f'../../data/datasets/X{label}_mean.dat',numpy.mean(X,axis=0))
+    numpy.savetxt(f'../../data/datasets/X{label}_std.dat',numpy.std(X,axis=0))
     X = (X-numpy.mean(X,axis=0))/numpy.std(X,axis=0)
 
     # save data
     if label == 'toy':
-        numpy.savetxt(f'data/datasets/X{label}.dat',Xtoy)
+        numpy.savetxt(f'../../data/datasets/X{label}.dat',Xtoy)
     else:
-        numpy.savetxt(f'data/datasets/X{label}.dat',X)
-        numpy.savetxt(f'data/datasets/Y{label}.dat',Y,fmt='%i')
+        numpy.savetxt(f'../../data/datasets/X{label}.dat',X)
+        numpy.savetxt(f'../../data/datasets/Y{label}.dat',Y,fmt='%i')
 
-#data(100,'toy')
-data(6.4*1e5,'train')
+data(100,'toy')
+#data(6.4*1e5,'train')
 #data(1.6*1e5,'validation')
 #data(2e5,'test')
 #data(2*64,'tiny_train')

@@ -73,7 +73,7 @@ def evaluate_model(args,train_loader,val_loader):
                 best_score = val_loss[epoch-1]
                 if args['save']:
                     ID = args['ID']
-                    torch.save(model.state_dict(),'data/results/{ID}/model_{ID}.pt')
+                    torch.save(model.state_dict(),'../data/results/{ID}/model_{ID}.pt')
                 counter = 0
             if early_stop:
                 break

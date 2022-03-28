@@ -12,7 +12,7 @@ class Dataset(torch.utils.data.Dataset):
         return (self.data[0][idx],self.data[1][idx])
 
 def load_data(args):
-    bdir = '/home/cquir/Documents/collision-detection'
+    bdir = '..'
     train_data = Dataset('train',bdir)
     val_data = Dataset('validation',bdir)
     train_loader = torch.utils.data.DataLoader(train_data,batch_size=args['batch_size'],shuffle=True)
