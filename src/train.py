@@ -9,7 +9,7 @@ def evaluate_model(args,train_loader,val_loader):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    model = nn.NeuralNetwork(args['i'],args['h'],args['hidden_layers'],args['dropout']).to(device)
+    model = nn.NeuralNetwork(14,args['h'],args['hidden_layers'],args['dropout']).to(device)
     criterion = torch.nn.BCEWithLogitsLoss()
     #optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
     optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
@@ -17,16 +17,17 @@ def evaluate_model(args,train_loader,val_loader):
     # train the neural network 
     def train(epoch):
         model.train()  
-        for batch_idx, (data,label) in enumerate(train_loader):
-            data, label = data.to(device), label.to(device)
+        for batch_idx, (x, y) in enumerate(train_loader):
+            x, y = x.to(device), y.to(device)
             optimizer.zero_grad()
-            output = model(data)
-            loss = criterion(output,label.unsqueeze(1))
+            output = model(x)
+            loss = criterion(output,y.unsqueeze(1))
             loss.backward()
             optimizer.step()
+
             if batch_idx % args['log_interval'] == 0:
                 print('Train Epoch: {} [{}/{} ({:.0f}%)]'.format(
-                    epoch, batch_idx*len(data),len(train_loader.dataset),
+                    epoch, batch_idx*len(x),len(train_loader.dataset),
                     100.*batch_idx/len(train_loader)))
                 sys.stdout.flush()
 
@@ -49,8 +50,10 @@ def evaluate_model(args,train_loader,val_loader):
         sys.stdout.flush()
         return test_loss, correct/len(test_loader.dataset)
 
-    train_losses = []; val_losses = [] 
-    val_accuracies = []; train_accuracies = []
+    train_losses = []
+    val_losses = [] 
+    val_accuracies = []
+    train_accuracies = []
     epochs = range(1,args['epochs']+1)
     best_score = None; early_stop = False; counter = 0
 

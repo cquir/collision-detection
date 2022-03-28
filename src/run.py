@@ -1,14 +1,18 @@
 import subprocess
 import numpy
 import torch
+from torch.utils.data import DataLoader
 import train
-import load
+from dataloader import ColliderDataset
 import os
 
 def run(args):
 
-    # load data + train model
-    train_loader,val_loader = load.load_data(args)
+    train_dataset = ColliderDataset(args["dataset"])
+
+    train_loader = DataLoader(train_dataset,batch_size=args['batch_size'],shuffle=True)
+    val_loader = None
+
     model, train_losses, val_losses, train_accuracies, val_accuracies = train.evaluate_model(args,train_loader,val_loader)
 
     # save results

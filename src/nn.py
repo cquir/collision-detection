@@ -1,11 +1,11 @@
 import torch
 
 class NeuralNetwork(torch.nn.Module):
-    def __init__(self,i,h,hidden_layers,dropout):
+    def __init__(self ,i, h, hidden_layers, dropout):
         super(NeuralNetwork,self).__init__()
         self.dropout = dropout 
         self.layers = torch.nn.ModuleList()
-        for n in range(hidden_layers+1):
+        for _ in range(hidden_layers+1):
             self.layers.append(torch.nn.Linear(i,h))
             self.layers.append(torch.nn.BatchNorm1d(h))
             i = h

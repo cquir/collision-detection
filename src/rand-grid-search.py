@@ -5,10 +5,8 @@ import run
 import sys
 import os
 
-if 'data' not in os.listdir('./'):
-    subprocess.call(f'mkdir data/',shell=True)
-if 'results' not in os.listdir('data/'):
-    subprocess.call(f'mkdir data/results/',shell=True)
+if not os.path.isdir("./data/results"):
+    os.mkdir("./data/results")
 
 args = dict(
     i = 2*3+2*4,
@@ -19,8 +17,9 @@ args = dict(
     epochs = 200,
     patience = 30,
     seed = 0,
-    save = False,
-    validation = False
+    save = True,
+    validation = False,
+    dataset="data/datasets/smoketest"
 )
 
 torch.manual_seed(args['seed'])
@@ -33,7 +32,7 @@ for i in range(N):
 
     # update + print hyperparameters
     args['hidden_layers'] = numpy.arange(1,8+1)[rand_idx(8)]
-    args['h'] = 500#[50,100,200,500][rand_idx(4)]
+    args['h'] = 500 #[50,100,200,500][rand_idx(4)]
     args['lr'] = 10**numpy.random.uniform(low=-5,high=-1)
     args['batch_size'] = 64#[32,64,128,256,512][rand_idx(5)]
 
