@@ -1,6 +1,6 @@
 import numpy
 import torch
-import sys
+import wandb
 import nn
 import os
 
@@ -10,6 +10,7 @@ def evaluate_model(args,train_loader,val_loader):
     device = torch.device("cuda" if use_cuda else "cpu")
 
     model = nn.NeuralNetwork(args['i'],args['h'],args['hidden_layers'],args['dropout']).to(device)
+    wandb.watch(model,log="all")
     criterion = torch.nn.BCEWithLogitsLoss()
     #optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
     optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
@@ -24,12 +25,7 @@ def evaluate_model(args,train_loader,val_loader):
             loss = criterion(output,label.unsqueeze(1))
             loss.backward()
             optimizer.step()
-            if batch_idx % args['log_interval'] == 0:
-                print('Train Epoch: {} [{}/{} ({:.0f}%)]'.format(
-                    epoch, batch_idx*len(data),len(train_loader.dataset),
-                    100.*batch_idx/len(train_loader)))
-                sys.stdout.flush()
-
+            
     # evaluate the neural network's performance
     def test(test_loader,dataset_label,batch_size):
         model.eval()
@@ -44,9 +40,6 @@ def evaluate_model(args,train_loader,val_loader):
                 pred = torch.round(torch.sigmoid(output))
                 correct += (pred.squeeze(1) == label).sum().item()
         test_loss *= batch_size/len(test_loader.dataset) 
-        print('{} set: Average loss: {:.4f}, Accuracy: {:.1f}%'.format(
-            dataset_label,test_loss,100.*correct/len(test_loader.dataset)))
-        sys.stdout.flush()
         return test_loss, correct/len(test_loader.dataset)
 
     train_losses = []; val_losses = [] 
@@ -57,18 +50,16 @@ def evaluate_model(args,train_loader,val_loader):
     test(train_loader,'Training',args['batch_size'])
     if args['validation']:
         test(val_loader,'Validation',args['test_batch_size'])
-    print(''); sys.stdout.flush()
 
     for epoch in epochs:
 
         train(epoch)
-        print(''); sys.stdout.flush()
         train_loss, train_accuracy = test(train_loader,'Training',args['batch_size'])
         train_losses.append(train_loss); train_accuracies.append(train_accuracy)
+        wandb.log({"Train loss":train_loss,"Train accuracy":train_accuracy})
         if args['validation']:
             val_loss, val_accuracy = test(val_loader,'Validation',args['test_batch_size'])
             val_losses.append(val_loss); val_accuracies.append(val_accuracy)
-        print(''); sys.stdout.flush()
 
         # early stopping
         if args['early_stopping']:
@@ -76,8 +67,6 @@ def evaluate_model(args,train_loader,val_loader):
                 best_score = val_loss[epoch-1]
             elif val_loss[epoch-1] >= best_score:
                 counter += 1
-                print(f'Early stopping counter: {counter}\n')
-                sys.stdout.flush()
                 if counter >= args['patience']:
                     early_stop = True
             else:
@@ -87,8 +76,6 @@ def evaluate_model(args,train_loader,val_loader):
                     torch.save(model.state_dict(),'data/results/{ID}/model_{ID}.pt')
                 counter = 0
             if early_stop:
-                print(f'Early Stopping!\n')
-                sys.stdout.flush()
                 break
         
     return model, train_losses, val_losses, train_accuracies, val_accuracies
