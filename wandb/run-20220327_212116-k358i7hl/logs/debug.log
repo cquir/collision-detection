@@ -1,0 +1,121 @@
+2022-03-27 21:21:16,056 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-27 21:21:16,056 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_212116-k358i7hl/logs/debug.log
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_212116-k358i7hl/logs/debug-internal.log
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 4.311710058685491e-05, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_1.4e-04_batch_size_64'}
+2022-03-27 21:21:16,057 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-27 21:21:23,591 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-27 22:15:54,399 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_221554-jg64td1p/logs/debug.log
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_221554-jg64td1p/logs/debug-internal.log
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 3, 'h': 500, 'lr': 8.663279761354552e-05, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_4.3e-05_batch_size_64'}
+2022-03-27 22:15:54,400 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-27 22:16:01,876 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-27 23:29:39,600 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-27 23:29:39,600 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-27 23:29:39,600 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-27 23:29:39,600 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-27 23:29:39,600 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_232939-px926yzq/logs/debug.log
+2022-03-27 23:29:39,601 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220327_232939-px926yzq/logs/debug-internal.log
+2022-03-27 23:29:39,601 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-27 23:29:39,601 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 3, 'h': 500, 'lr': 0.0004734989304499473, 'batch_size': 64, 'ID': 'hidden_layers_3_h_500_lr_8.7e-05_batch_size_64'}
+2022-03-27 23:29:39,601 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-27 23:29:47,179 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_004348-3so7w5y7/logs/debug.log
+2022-03-28 00:43:48,179 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_004348-3so7w5y7/logs/debug-internal.log
+2022-03-28 00:43:48,180 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 00:43:48,180 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 1.4135935551752292e-05, 'batch_size': 64, 'ID': 'hidden_layers_3_h_500_lr_4.7e-04_batch_size_64'}
+2022-03-28 00:43:48,180 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 00:43:55,820 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_013855-25degopv/logs/debug.log
+2022-03-28 01:38:55,039 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_013855-25degopv/logs/debug-internal.log
+2022-03-28 01:38:55,040 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 01:38:55,040 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 3.860866271460546e-05, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_1.4e-05_batch_size_64'}
+2022-03-28 01:38:55,040 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 01:39:02,589 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 02:33:58,477 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 02:33:58,477 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 02:33:58,477 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 02:33:58,477 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 02:33:58,477 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_023358-2x8lap76/logs/debug.log
+2022-03-28 02:33:58,478 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_023358-2x8lap76/logs/debug-internal.log
+2022-03-28 02:33:58,478 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 02:33:58,478 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 0.0005981221901152551, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_3.9e-05_batch_size_64'}
+2022-03-28 02:33:58,478 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 02:34:05,995 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 03:29:00,468 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 03:29:00,469 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 03:29:00,469 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 03:29:00,469 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 03:29:00,469 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_032900-3kkztqob/logs/debug.log
+2022-03-28 03:29:00,469 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_032900-3kkztqob/logs/debug-internal.log
+2022-03-28 03:29:00,470 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 03:29:00,470 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 3, 'h': 500, 'lr': 1.8255254802398988e-06, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_6.0e-04_batch_size_64'}
+2022-03-28 03:29:00,470 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 03:29:09,415 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 04:43:12,717 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 04:43:12,718 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 04:43:12,718 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 04:43:12,718 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 04:43:12,718 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_044312-5hlljeam/logs/debug.log
+2022-03-28 04:43:12,719 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_044312-5hlljeam/logs/debug-internal.log
+2022-03-28 04:43:12,719 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 04:43:12,719 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 3, 'h': 500, 'lr': 0.0003146730406166003, 'batch_size': 64, 'ID': 'hidden_layers_3_h_500_lr_1.8e-06_batch_size_64'}
+2022-03-28 04:43:12,720 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 04:43:20,490 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 05:57:26,082 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 05:57:26,082 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 05:57:26,082 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 05:57:26,082 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 05:57:26,083 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_055726-v6q7zi44/logs/debug.log
+2022-03-28 05:57:26,083 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_055726-v6q7zi44/logs/debug-internal.log
+2022-03-28 05:57:26,083 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 05:57:26,083 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 0.000407414465416623, 'batch_size': 64, 'ID': 'hidden_layers_3_h_500_lr_3.1e-04_batch_size_64'}
+2022-03-28 05:57:26,084 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 05:57:33,663 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 06:52:35,601 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 06:52:35,602 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 06:52:35,602 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 06:52:35,602 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 06:52:35,603 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_065235-d9pf0qni/logs/debug.log
+2022-03-28 06:52:35,603 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_065235-d9pf0qni/logs/debug-internal.log
+2022-03-28 06:52:35,603 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 06:52:35,604 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 2, 'h': 500, 'lr': 0.00024973286104060585, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_4.1e-04_batch_size_64'}
+2022-03-28 06:52:35,604 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 06:52:43,421 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching
+2022-03-28 07:47:18,217 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/.config/wandb/settings
+2022-03-28 07:47:18,217 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from /home/cquir/Documents/collision-detection/wandb/settings
+2022-03-28 07:47:18,218 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Loading settings from environment variables: {}
+2022-03-28 07:47:18,218 INFO    MainThread:53591 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'rand-grid-search.py', 'program': 'rand-grid-search.py'}
+2022-03-28 07:47:18,218 INFO    MainThread:53591 [wandb_init.py:_log_setup():405] Logging user logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_074718-38xlondh/logs/debug.log
+2022-03-28 07:47:18,218 INFO    MainThread:53591 [wandb_init.py:_log_setup():406] Logging internal logs to /home/cquir/Documents/collision-detection/wandb/run-20220328_074718-38xlondh/logs/debug-internal.log
+2022-03-28 07:47:18,218 INFO    MainThread:53591 [wandb_init.py:init():439] calling init triggers
+2022-03-28 07:47:18,219 INFO    MainThread:53591 [wandb_init.py:init():442] wandb.init called with sweep_config: {}
+config: {'i': 14, 'dropout': False, 'early_stopping': False, 'test_batch_size': 1000, 'log_interval': 100, 'epochs': 100, 'patience': 30, 'seed': 0, 'save': True, 'validation': False, 'hidden_layers': 3, 'h': 500, 'lr': 0.00021957734465394575, 'batch_size': 64, 'ID': 'hidden_layers_2_h_500_lr_2.5e-04_batch_size_64'}
+2022-03-28 07:47:18,219 INFO    MainThread:53591 [wandb_init.py:init():487] wandb.init() called when a run is still active
+2022-03-28 07:47:25,724 INFO    MainThread:53591 [wandb_watch.py:watch():47] Watching

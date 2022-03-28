@@ -1,9 +1,9 @@
 __pycache__/
 plotting/*
 data/*
-wandb/*
+src/wandb/*
 src/tests/*
-nohup.out
+src/nohup.out
 *.swp
 
 data/**
