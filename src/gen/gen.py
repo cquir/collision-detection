@@ -2,19 +2,16 @@ import scipy.spatial
 import subprocess
 import collide
 import numpy
+import click
 import os
-
-numpy.random.seed(0)
-
-# convert 3 random uniform numbers between 0 and 1 (u,v,w) to a random uniform quaternion
-a = lambda u,v: numpy.sqrt(1-u)*numpy.sin(2*numpy.pi*v)
-b = lambda u,v: numpy.sqrt(1-u)*numpy.cos(2*numpy.pi*v)
-c = lambda u,w: numpy.sqrt(u)*numpy.sin(2*numpy.pi*w)
-d = lambda u,w: numpy.sqrt(u)*numpy.cos(2*numpy.pi*w)
 
 # generate random uniform quaternion
 def uniform_quaternion():
     [u,v,w] = numpy.random.uniform(0,1,3)
+    a = lambda u,v: numpy.sqrt(1-u)*numpy.sin(2*numpy.pi*v)
+    b = lambda u,v: numpy.sqrt(1-u)*numpy.cos(2*numpy.pi*v)
+    c = lambda u,w: numpy.sqrt(u)*numpy.sin(2*numpy.pi*w)
+    d = lambda u,w: numpy.sqrt(u)*numpy.cos(2*numpy.pi*w)
     return [a(u,v),b(u,v),c(u,w),d(u,w)]
 
 # generate example comprising of random position + quaternion for each cube
@@ -25,8 +22,15 @@ def example():
     q1 = uniform_quaternion()
     return pos0,pos1,q0,q1
 
-# generate data
-def data(N,label):
+@click.command()
+@click.option('--N','N',default='100',help='Number of examples')
+@click.option('--label',default='toy',help='Dataset label')
+def gen(N,label):
+
+    numpy.random.seed(0)
+
+    if not os.path.isdir('../../data/datasets/'):
+        os.mkdir('../../data/datasets/')
 
     Xtoy = []; X = []; Y = []
 
@@ -56,8 +60,5 @@ def data(N,label):
         numpy.savetxt(f'../../data/datasets/X{label}.dat',X)
         numpy.savetxt(f'../../data/datasets/Y{label}.dat',Y,fmt='%i')
 
-data(100,'toy')
-#data(6.4*1e5,'train')
-#data(1.6*1e5,'validation')
-#data(2e5,'test')
-#data(2*64,'tiny_train')
+if __name__ == "__main__":
+    gen()
