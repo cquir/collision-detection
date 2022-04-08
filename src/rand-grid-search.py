@@ -7,17 +7,17 @@ import sys
 import os
 
 args = dict(
-    i = 2*3+2*4,
-    dropout = False,
-    early_stopping = False,
+    i = 3+4,
     test_batch_size = 1000,
-    log_interval = 100,
-    epochs = 100,
-    patience = 30,
+    epochs = 100, 
+    patience = 10,
     seed = 0,
-    save = True,
-    validation = False,
-    training_examples = 6.4*1e5
+    validation = True,
+    dataset_examples = 1e6,
+    dropout = False,
+    pdrop = 0.0,
+    early_stopping = False,
+    threshold = 1.0
 )
 
 torch.manual_seed(args['seed'])
@@ -25,20 +25,16 @@ numpy.random.seed(args['seed'])
 
 rand_idx = lambda ln: numpy.nonzero(numpy.random.multinomial(n=1,pvals=ln*[1./ln]))[0][0]
 
-N = 30
-for i in range(N):
+N = 1
+for idx in range(N):
+    # update  hyperparameters
+    args['hidden_layers'] = 5
+    args['h'] = 100
+    args['lr'] = 0.0005
+    args['batch_size'] = 256
 
-    # update + print hyperparameters
-    args['hidden_layers'] = 1+(i%3)#numpy.arange(2,3+1)[rand_idx(2)]
-    args['h'] = 500#[50,100,200,500][rand_idx(4)]
-    args['lr'] = 10**numpy.random.uniform(low=-6,high=-3)
-    args['batch_size'] = 64#[32,64,128,256,512][rand_idx(5)]
+    obj = wandb.init(config=args,project='collision-detection',reinit=True)
+    args['name']  = obj.name
 
-    if i >= 2:
-        wandb.init(config=args,project='collision-detection',reinit=True)
-
-        args['ID'] =  'hidden_layers_{}_h_{}_lr_{:.1e}_batch_size_{}'.format(
-                args['hidden_layers'],args['h'],args['lr'],args['batch_size']) 
-
-        # run training loop
-        run.run(args)
+    # run training loop
+    run.run(args)
