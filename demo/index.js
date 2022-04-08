@@ -28,10 +28,10 @@ function App() {
 	return (
 		<div id="canvas-container" style={{width:window.innerWidth,height:window.innerHeight}}>
 			<Canvas camera={{position:[0,0,7]}}>
-					<OrbitControls/>
-					<directionalLight color={'#ffffff'} intensity={1} position={[0,1,0]}/> 
-					<Cube color={'#525e98'}/>
-					<Cube color={'#da6f46'}/>
+				<OrbitControls/>
+				<directionalLight color={'#ffffff'} intensity={1} position={[0,1,0]}/> 
+				<Cube color={'#525e98'}/>
+				<Cube color={'#da6f46'}/>
 			</Canvas>
 			<div style={{position:'absolute',top:'90%',left:'50%',transform: 'translate3d(-50%,-50%,0)'}}>
 				<h1 style={{fontSize:'100px'}}>TEST</h1>
