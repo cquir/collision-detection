@@ -1,7 +1,11 @@
 import ReactDOM from 'react-dom'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef, useEffect } from 'react'
+import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { PresentationControls, softShadows } from '@react-three/drei'
 import './index.css'
+import InputHandler from './inputs'
+
+const inputs = new InputHandler()
 
 softShadows()
 
@@ -23,7 +27,7 @@ function Light(props){
 }
 
 function Plane(props){
-	useFrame((state) => { state.camera.lookAt(0,3*Math.sqrt(3)/4,0)})
+	useThree((state) => { state.camera.lookAt(0,3*Math.sqrt(3)/4,0)})
 	return (
 		<mesh receiveShadow rotation={[-Math.PI/2,0,0]}>
 			<planeGeometry args={[100,100]}/>
@@ -32,32 +36,64 @@ function Plane(props){
 	)
 }
 
-let Heights = () => {
-	let y0 = Math.sqrt(3)*(Math.random()-0.5) 
-	let y1 = Math.sqrt(3)*(Math.random()-0.5) 
-	let min = Math.min(y0,y1)
-	y0 = y0-min+Math.sqrt(3)/2
-	y1 = y1-min+Math.sqrt(3)/2
-	return [y0,y1]
+function Positions(){
+	let xs = [], ys = [], zs = []
+	for (let i=0; i<2; i++){
+		xs.push(Math.sqrt(3)*(Math.random()-0.5))
+		ys.push(Math.sqrt(3)*(Math.random()-0.5))
+		zs.push(Math.sqrt(3)*(Math.random()-0.5))
+	}
+	let min = Math.min(ys[0],ys[1])
+	ys[0] = ys[0]-min+Math.sqrt(3)/2
+	ys[1] = ys[1]-min+Math.sqrt(3)/2
+	return [xs[0],ys[0],zs[0],xs[1],ys[1],zs[1]]
 }
 
-function Cube(props){
-	let x = Math.sqrt(3)*(Math.random()-0.5)
-	let z = Math.sqrt(3)*(Math.random()-0.5)
+function Quaternion(){
 	let u = Math.random()
 	let v = Math.random()
 	let w = Math.random()
-	let a = Math.sqrt(1-u)*Math.sin(2*Math.PI*v)
+	let a = Math.sqrt(1-u)*Math.sin(2*Math.PI*v) 
 	let b = Math.sqrt(1-u)*Math.cos(2*Math.PI*v)
 	let c = Math.sqrt(u)*Math.sin(2*Math.PI*w)
 	let d = Math.sqrt(u)*Math.cos(2*Math.PI*w)
+	return [a,b,c,d]
+}
+
+function Cubes(props){
+	const cube0 = useRef()
+	const cube1 = useRef()
+	useFrame(() => {
+		if (inputs.keys[" "]){
+			let [x0,y0,z0,x1,y1,z1] = Positions()
+			let [a0,b0,c0,d0] = Quaternion()
+			let [a1,b1,c1,d1] = Quaternion()
+			cube0.current.position.set(x0,y0,z0)
+			cube1.current.position.set(x1,y1,z1)
+			cube0.current.quaternion.set(a0,b0,c0,d0)
+			cube1.current.quaternion.set(a1,b1,c1,d1)
+			let nothing = () => {}
+			setTimeout(this.nothing().bind(this),100)	
+		}
+	})
+	let [x0,y0,z0,x1,y1,z1] = Positions()
+	let [a0,b0,c0,d0] = Quaternion()
+	let [a1,b1,c1,d1] = Quaternion()
 	return (
-	<mesh castShadow position={[x,props.y,z]} quaternion={[a,b,c,d]}>
-		<boxGeometry />
-		<meshToonMaterial color={props.color}/>
-	</mesh>
+	<group>
+		<mesh ref={cube0} castShadow position={[x0,y0,z0]} quaternion={[a0,b0,c0,d0]}>
+			<boxGeometry />
+			<meshToonMaterial color={'#ff6666'}/>
+		</mesh>
+		<mesh ref={cube1} castShadow position={[x1,y1,z1]} quaternion={[a1,b1,c1,d1]}>
+			<boxGeometry />
+			<meshToonMaterial color={'#525266'}/>
+		</mesh>
+	</group>
 	)
 }
+
+// next: update header when pressing the spacebar
 
 function Header(props){
 	return(
@@ -96,10 +132,7 @@ function Paragraph(props){
 	)
 }
 
-// next: press spacebar for new collision + random 'Collision!' or 'No collision!' text 
-
 function App() {
-	let ys = Heights()
 	return (
 		<div id='canvas-container' style={{width:window.innerWidth,height:window.innerHeight}}>
 			<Canvas shadows camera={{fov:25,position:[0,3,10]}}>
@@ -107,8 +140,7 @@ function App() {
 					<PresentationControls global>
 						<Light/>
 						<Plane/>
-						<Cube y={ys[0]} color={'#ff6666'}/>
-						<Cube y={ys[1]} color={'#525266'}/>
+						<Cubes/>
 					</PresentationControls>
 			</Canvas>
 			<Header/>
