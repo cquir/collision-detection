@@ -9,32 +9,29 @@ import os
 args = dict(
     i = 3+4,
     test_batch_size = 1000,
-    epochs = 100, 
+    epochs = 200, 
     patience = 10,
-    seed = 0,
+    seed = 1,
     validation = True,
-    dataset_examples = 1e6,
+    dataset_examples = 5e7,
     dropout = False,
     pdrop = 0.0,
     early_stopping = False,
-    threshold = 1.0
+    threshold = 1.0,
+	split = 1.0,
+	pct_start = 0.3,
+	max_momentum = 0.97,
+	hidden_layers = 6,
+	h = 500,
+	batch_size = 256,
+	lr = 1e-4
 )
 
 torch.manual_seed(args['seed'])
 numpy.random.seed(args['seed'])
 
-rand_idx = lambda ln: numpy.nonzero(numpy.random.multinomial(n=1,pvals=ln*[1./ln]))[0][0]
+obj = wandb.init(config=args,project='collision-detection',reinit=True)
+args['name']  = obj.name
 
-N = 1
-for idx in range(N):
-    # update  hyperparameters
-    args['hidden_layers'] = 5
-    args['h'] = 100
-    args['lr'] = 0.0005
-    args['batch_size'] = 256
-
-    obj = wandb.init(config=args,project='collision-detection',reinit=True)
-    args['name']  = obj.name
-
-    # run training loop
-    run.run(args)
+# run training loop
+run.run(args)

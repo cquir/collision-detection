@@ -13,8 +13,8 @@ def evaluate_model(args,train_loader,val_loader):
     wandb.watch(model,log="all")
     criterion = torch.nn.BCEWithLogitsLoss()
     #optimizer = torch.optim.SGD(model.parameters(),lr=args['lr'],momentum=args['momentum'])
-    optimizer = torch.optim.Adam(model.parameters(),lr=args['lr'])
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,max_lr=args['lr'],steps_per_epoch=len(train_loader),epochs=args['epochs'])
+    optimizer = torch.optim.AdamW(model.parameters(),lr=args['lr'])
+    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,max_lr=args['lr'],steps_per_epoch=len(train_loader),epochs=args['epochs'],pct_start=args['pct_start'],max_momentum=args['max_momentum'])
 
     # train the neural network 
     def train(epoch):
