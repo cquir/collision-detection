@@ -49,29 +49,31 @@ def example(label,split):
 
 @click.command()
 @click.option('--Ntot','Ntot',default=1e6,help='Number of examples')
-@click.option('--split','split',default=0.0,help='Split between sampling distributions for training')
+@click.option('--split','split',default=1.0,help='Split between sampling distributions for training')
 def gen(Ntot,split):
 	if not os.path.isdir('../../data/datasets/'):
 		os.mkdir('../../data/datasets/')
 	numpy.random.seed(0)
-	for dataset,perc in zip([f'train','validation','test'],[0.64, 0.16,0.2]):
-		N = int(Ntot*perc)
-		X = []; Y = []
-		for i in range(int(N)):
-			# generate example
-			pos,q = example(dataset,split)
-			
-			# check if there is a collision 
-			_, _, res = collide.collision_detection([0,0,0],pos,[1,0,0,0],q)
-			# add data to arrays to save later
-			X.append(numpy.concatenate((pos,q)))
-			Y.append(int(res))
-		# save data
-		label = f'rel-in-split-{split}-Ntot-{Ntot:.1e}'
-		if not os.path.isdir(f'../../data/datasets/{label}/'):
-			os.mkdir(f'../../data/datasets/{label}/')
-		numpy.savetxt(f'../../data/datasets/{label}/X{dataset}-{label}.dat',X)
-		numpy.savetxt(f'../../data/datasets/{label}/Y{dataset}-{label}.dat',Y,fmt='%i')
+	Nfolds = max(1,int(Ntot/5e5))
+	for idx in range(Nfolds):
+		for dataset,perc in zip([f'train','validation','test'],[0.64, 0.16,0.2]):
+			N = int(Ntot*perc/Nfolds)
+			X = []; Y = []
+			for i in range(int(N)):
+				# generate example
+				pos,q = example(dataset,split)
+				# check if there is a collision 
+				_, _, res = collide.collision_detection([0,0,0],pos,[1,0,0,0],q)
+				# add data to arrays to save later
+				X.append(numpy.concatenate((pos,q)))
+				Y.append(int(res))
+			# save data
+			label = f'rel-in-split-{split}-Ntot-{Ntot:.1e}'
+			if not os.path.isdir(f'../../data/datasets/{label}/'):
+				os.mkdir(f'../../data/datasets/{label}/')
+			fold = '' if Nfolds == 0 else f'-fold-{idx}'
+			numpy.savetxt(f'../../data/datasets/{label}/X{dataset}-{label}{fold}.dat',X)
+			numpy.savetxt(f'../../data/datasets/{label}/Y{dataset}-{label}{fold}.dat',Y,fmt='%i')
 
 if __name__ == "__main__":
 	gen()
