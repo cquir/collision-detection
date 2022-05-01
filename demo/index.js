@@ -1,13 +1,10 @@
 import ReactDOM from 'react-dom'
-import { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { PresentationControls, softShadows } from '@react-three/drei'
-import './index.css'
-import InputHandler from './inputs'
-
-const inputs = new InputHandler()
 
 softShadows()
+let keydown = false
 
 function Light(props){
 	return (
@@ -64,7 +61,7 @@ function Cubes(props){
 	const cube0 = useRef()
 	const cube1 = useRef()
 	useFrame(() => {
-		if (inputs.keys[" "]){
+		let onKeyDown = () => {
 			let [x0,y0,z0,x1,y1,z1] = Positions()
 			let [a0,b0,c0,d0] = Quaternion()
 			let [a1,b1,c1,d1] = Quaternion()
@@ -72,9 +69,24 @@ function Cubes(props){
 			cube1.current.position.set(x1,y1,z1)
 			cube0.current.quaternion.set(a0,b0,c0,d0)
 			cube1.current.quaternion.set(a1,b1,c1,d1)
-			let nothing = () => {}
-			setTimeout(this.nothing().bind(this),100)	
+			let text = (Math.random() > 0.5)? 'COLLISION':'NO COLLISION'
+			document.getElementById('header').innerHTML = text
 		}
+		document.addEventListener('keydown',(e) => {
+			if (e.key === " "){
+				if (!keydown) {
+					keydown = true
+					onKeyDown()
+				}
+			}
+		})
+		document.addEventListener('keyup',(e) => {
+			if (e.key === " "){
+				if (keydown){
+					keydown = false
+				}
+			}
+		})
 	})
 	let [x0,y0,z0,x1,y1,z1] = Positions()
 	let [a0,b0,c0,d0] = Quaternion()
@@ -98,7 +110,7 @@ function Cubes(props){
 function Header(props){
 	return(
 	<div style={{position:'absolute',top:'10%',left:'50%',transform: 'translate3d(-50%,-50%,0)'}}>
-		<h1 style={
+		<h1 id='header' style={
 			{fontFamily:"'Roboto', sans-serif",
 			fontSize:'50px',
 			fontWeight:'900',
