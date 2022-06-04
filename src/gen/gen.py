@@ -48,13 +48,13 @@ def example(label,split):
 	return pos,q
 
 @click.command()
-@click.option('--Ntot','Ntot',default=1e6,help='Number of examples')
+@click.option('--Ntot','Ntot',default=3e8,help='Number of examples')
 @click.option('--split','split',default=1.0,help='Split between sampling distributions for training')
 def gen(Ntot,split):
 	if not os.path.isdir('../../data/datasets/'):
 		os.mkdir('../../data/datasets/')
 	numpy.random.seed(0)
-	Nfolds = max(1,int(Ntot/5e5))
+	Nfolds = max(1,int(Ntot/5e7))
 	for idx in range(Nfolds):
 		for dataset,perc in zip([f'train','validation','test'],[0.64, 0.16,0.2]):
 			N = int(Ntot*perc/Nfolds)

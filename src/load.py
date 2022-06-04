@@ -17,7 +17,7 @@ class Dataset(torch.utils.data.Dataset):
 def load_data(args):
 	bdir = '..'
 	split = args['split']; Ntot = args['dataset_examples']
-	Nfolds = max(1,int(Ntot/5e5))
+	Nfolds = max(1,int(Ntot/5e7))
 	train_data = Dataset('train',f'rel-in-split-{split}-Ntot-{Ntot:.1e}',Nfolds,bdir)
 	val_data = Dataset('validation',f'rel-in-split-{split}-Ntot-{Ntot:.1e}',Nfolds,bdir)
 	train_loader = torch.utils.data.DataLoader(train_data,batch_size=args['batch_size'],shuffle=True)

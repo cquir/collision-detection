@@ -27,11 +27,12 @@ def collision_detection(pos0,pos1,q0,q1):
     ns = numpy.append(ns,numpy.cross(x,y)).reshape(-1,3)
 
     # determine if there is a collision along each normal vector
-    collides = []
+    collides = []; prjs_arr = []
     for n in ns:
         prjs = numpy.dot(numpy.concatenate(cs),n)
+        prjs_arr.append(prjs)
         pmin = min(prjs[:8]); pmax = max(prjs[:8])
         collides.append(len(prjs[8:][(prjs[8:] >= pmin) & (prjs[8:] <= pmax)]) > 0)
 
     # collision if collision along all normal vectors
-    return cs, all(collides)
+    return cs, prjs_arr, all(collides)

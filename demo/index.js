@@ -1,10 +1,17 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import React, { useRef } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { PresentationControls, softShadows } from '@react-three/drei'
+import { Tensor, InferenceSession } from 'onnxjs'
 
 softShadows()
 let keydown = false
+
+/*
+const session = new InferenceSession()
+const url = "/model-earthy-durian-312.onnx"
+await session.loadModel(url)
+*/
 
 function Light(props){
 	return (
@@ -105,8 +112,6 @@ function Cubes(props){
 	)
 }
 
-// next: update header when pressing the spacebar
-
 function Header(props){
 	return(
 	<div style={{position:'absolute',top:'10%',left:'50%',transform: 'translate3d(-50%,-50%,0)'}}>
@@ -144,21 +149,17 @@ function Paragraph(props){
 	)
 }
 
-function App() {
-	return (
-		<div id='canvas-container' style={{width:window.innerWidth,height:window.innerHeight}}>
-			<Canvas shadows camera={{fov:25,position:[0,3,10]}}>
-				<color attach='background' args={['#cbbeb5']}/>
-					<PresentationControls global>
-						<Light/>
-						<Plane/>
-						<Cubes/>
-					</PresentationControls>
-			</Canvas>
-			<Header/>
-			<Paragraph/>
-		</div>
-	)
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+createRoot(document.getElementById('root')).render(
+	<div id='canvas-container' style={{width:window.innerWidth,height:window.innerHeight}}>
+		<Canvas shadows camera={{fov:25,position:[0,3,10]}}>
+			<color attach='background' args={['#cbbeb5']}/>
+				<PresentationControls global>
+					<Light/>
+					<Plane/>
+					<Cubes/>
+				</PresentationControls>
+		</Canvas>
+		<Header/>
+		<Paragraph/>
+	</div>
+)

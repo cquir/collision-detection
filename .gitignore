@@ -3,4 +3,6 @@ tests/
 **/__pycache__
 **/wandb
 *.out
+to-do.txt
+demo/comment.txt
 !.gitkeep

@@ -84,6 +84,7 @@ def evaluate_model(args,train_loader,val_loader):
 					early_stop = True
 			else:
 				best_score = val_loss
+				args['best_val_accuracy'] = val_accuracy
 				torch.save({
 					'epoch': epoch,
 					'model_state_dict': model.state_dict(),
@@ -95,13 +96,14 @@ def evaluate_model(args,train_loader,val_loader):
 				counter = 0
 			if early_stop:
 				break
-		else:
-			torch.save({
-				'epoch': epoch,
-				'model_state_dict': model.state_dict(),
-				'optimizer_state_dict': optimizer.state_dict(),
-				'scheduler_state_dict': scheduler.state_dict(),
-				}, f'../data/results/{args["name"]}/model-{args["name"]}.pt')
+		torch.save({
+			'epoch': epoch,
+			'model_state_dict': model.state_dict(),
+			'optimizer_state_dict': optimizer.state_dict(),
+			'scheduler_state_dict': scheduler.state_dict(),
+			'best_score': best_score,
+			'counter': counter,
+			}, f'../data/results/{args["name"]}/model-{args["name"]}.pt')
 		# abort if training loss is above threshold
 		if train_loss >= args['threshold']:
 			break
