@@ -13,7 +13,7 @@ const url = "/model-earthy-durian-312.onnx"
 await session.loadModel(url)
 */
 
-function Light(props){
+/*function Light(props){
 	return (
 	<directionalLight
 		color={'#ffffff'} 
@@ -28,8 +28,9 @@ function Light(props){
 		shadow-camera-right={2}
 		shadow-camera-left={-2}/> 
 	)
-}
+}*/
 
+/*
 function Plane(props){
 	useThree((state) => { state.camera.lookAt(0,3*Math.sqrt(3)/4,0)})
 	return (
@@ -39,7 +40,15 @@ function Plane(props){
 		</mesh>
 	)
 }
+*/
 
+
+// ***********************
+// ***********************
+// ***********************
+/**
+ * DO LATER
+ */
 function Positions(){
 	let xs = [], ys = [], zs = []
 	for (let i=0; i<2; i++){
@@ -99,6 +108,7 @@ function Cubes(props){
 	let [a0,b0,c0,d0] = Quaternion()
 	let [a1,b1,c1,d1] = Quaternion()
 	return (
+	/*
 	<group>
 		<mesh ref={cube0} castShadow position={[x0,y0,z0]} quaternion={[a0,b0,c0,d0]}>
 			<boxGeometry />
@@ -109,6 +119,7 @@ function Cubes(props){
 			<meshToonMaterial color={'#525266'}/>
 		</mesh>
 	</group>
+	*/
 	)
 }
 
@@ -148,6 +159,10 @@ function Paragraph(props){
 	</div>
 	)
 }
+
+// ***********************
+// ***********************
+// ***********************
 
 createRoot(document.getElementById('root')).render(
 	<div id='canvas-container' style={{width:window.innerWidth,height:window.innerHeight}}>
