@@ -1,4 +1,5 @@
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import { OrbitControls } from './OrbitControls.js'
 
 async function main(){
     const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
@@ -6,13 +7,13 @@ async function main(){
     const tensor = new ort.Tensor('float32',data,[1,7]);
     const feeds = {input: tensor};
     const results = await session.run(feeds);
-    console.log(results['output']['data'][0])
+    const output = results['output']['data'][0];
+    const prob = 1/(1+Math.exp(-output));
+    console.log(prob);
 }
 main()
 
 // **************************************
-
-// Missing: orbitControls
 
 // scene
 const scene = new THREE.Scene();
@@ -50,17 +51,25 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
+// Controls
+const controls = new OrbitControls(camera,renderer.domElement);
+controls.update();
+
 // light
 const light = new THREE.DirectionalLight({color:'#ffffff',intensity:1});
-light.position.set(0,1,0);
+light.position.set(0,2,0);
 light.castShadow = true;
 light.shadow.mapSize.width = 1024;
 light.shadow.mapSize.height = 1024;
-light.shadow.camera.top = 2;
-light.shadow.camera.bottom = -2;
-light.shadow.camera.right = 2;
-light.shadow.camera.left = -2;
+light.shadow.camera.far = 3;
+light.shadow.camera.near = -3;
+light.shadow.camera.top = 3;
+light.shadow.camera.bottom = -3;
+light.shadow.camera.right = 3;
+light.shadow.camera.left = -3;
 scene.add(light);
+//const helper = new THREE.CameraHelper(light.shadow.camera);
+//scene.add(helper);
 
 // plane
 const planeGeometry = new THREE.PlaneGeometry(100,100);
@@ -89,6 +98,7 @@ scene.add(cubeB);
 // animate
 function animate() {
     requestAnimationFrame(animate);
+    controls.update();
     renderer.render(scene,camera);
 }
 
