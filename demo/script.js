@@ -1,9 +1,16 @@
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { OrbitControls } from './OrbitControls.js'
 
+// **************************************************************
+// NEXT: feed cubeB's quaternion (as relative quaternion)
+
+const relX = (1+Math.sqrt(3))*(Math.random()-0.5);
+const relY = (1+Math.sqrt(3))*(Math.random()-0.5);
+const relZ = (1+Math.sqrt(3))*(Math.random()-0.5);
+
 async function main(){
     const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
-    const data = Float32Array.from([0,0,0,0,0,0,0]);
+    const data = Float32Array.from([relX,relY,relZ,0,0,0,0]);
     const tensor = new ort.Tensor('float32',data,[1,7]);
     const feeds = {input: tensor};
     const results = await session.run(feeds);
@@ -13,7 +20,8 @@ async function main(){
 }
 main()
 
-// **************************************
+// **************************************************************
+
 
 // scene
 const scene = new THREE.Scene();
@@ -36,8 +44,7 @@ window.addEventListener('resize', () =>
 
 // camera
 const camera = new THREE.PerspectiveCamera(25,sizes.width/sizes.height,0.1,100);
-camera.position.set(0,3,10);
-camera.lookAt(0,3*Math.sqrt(3)/4,0);
+camera.position.set(0,0,10);
 
 // renderer
 const canvas = document.querySelector('canvas.webgl');
@@ -85,14 +92,18 @@ const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 const cubeAmaterial = new THREE.MeshToonMaterial({color:'#525266'});
 const cubeBmaterial = new THREE.MeshToonMaterial({color:'#ff6666'});
 const cubeA = new THREE.Mesh(cubeGeometry,cubeAmaterial);
-cubeA.castShadow = true;
-cubeA.receiveShadow = false;
-cubeA.position.set(0,1,0);
-scene.add(cubeA);
 const cubeB = new THREE.Mesh(cubeGeometry,cubeBmaterial);
+cubeA.castShadow = true;
 cubeB.castShadow = true;
+cubeA.receiveShadow = false;
 cubeB.receiveShadow = false;
-cubeB.position.set(1.5,1,0);
+cubeA.position.set(0,1+Math.sqrt(3)/2,0);
+cubeB.position.set(
+    cubeA.position.x + relX,
+    cubeA.position.y + relY,
+    cubeA.position.z + relZ 
+);
+scene.add(cubeA);
 scene.add(cubeB);
 
 // animate

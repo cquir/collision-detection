@@ -4,7 +4,7 @@ import torch
 import onnx
 import nn
 
-device = torch.device('cpu')
+device = torch.device('cpu') ## REMOVE LATER
 
 # load pytorch model
 name = 'sleek-breeze-268'
@@ -16,10 +16,3 @@ model.eval()
 # convert and save pytorch model to onnx model
 dummy_input = torch.zeros(1,7)
 torch.onnx.export(model,dummy_input,f'../data/results/model-{name}.onnx',input_names=['input'],output_names=['output'])
-
-# verify onnx file works
-onnx_model = onnx.load(f'../data/results/model-{name}.onnx')
-ort_sess = onnxruntime.InferenceSession(f'../data/results/model-{name}.onnx')
-outputs = ort_sess.run(None,{'input':dummy_input.numpy()})
-print(dummy_input.numpy())
-print(outputs[0][0][0])
