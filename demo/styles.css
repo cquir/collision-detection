@@ -1,3 +1,25 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
+    padding: 0;
+}
+
+.wegl {
+    position: fixed;
+}
+
+.text {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    margin: 90vh 0 0 0;
+    width: 100%;
 }

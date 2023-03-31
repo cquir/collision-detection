@@ -14,7 +14,7 @@ function approxRandNormal(){
     + Math.random() 
     + Math.random() 
     + Math.random() 
-    + Math.random()) - 3) / 3
+    + Math.random())-3)/3
 }
 
 const uX = approxRandNormal();
@@ -23,25 +23,24 @@ const uZ = approxRandNormal();
 const scale = 1/Math.sqrt(uX**2+uY**2+uZ**2);
 const theta = 2*Math.PI*Math.random();
 
-const qX = Math.cos(theta/2);
-const qY = uX*scale*Math.sin(theta/2);
-const qZ = uY*scale*Math.sin(theta/2);
-const qW = uZ*scale*Math.sin(theta/2);
+const relQuatX = Math.cos(theta/2);
+const relQuatY = uX*scale*Math.sin(theta/2);
+const relQuatZ = uY*scale*Math.sin(theta/2);
+const relQuatW = uZ*scale*Math.sin(theta/2);
 
 async function main(){
     const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
-    const data = Float32Array.from([relX,relY,relZ,qX,qY,qZ,qW]);
+    const data = Float32Array.from([relX,relY,relZ,relQuatX,relQuatY,relQuatZ,relQuatW]);
     const tensor = new ort.Tensor('float32',data,[1,7]);
     const feeds = {input: tensor};
     const results = await session.run(feeds);
     const output = results['output']['data'][0];
-    const prob = 1/(1+Math.exp(-output));
-    console.log(prob);
+    const prob = Math.round(10000/(1+Math.exp(-output)))/100;
+    document.getElementById("predictions").innerHTML = 'probability of collision = '+prob.toString()+' %';
 }
 main()
 
 // **************************************************************
-
 
 // scene
 const scene = new THREE.Scene();
@@ -118,15 +117,20 @@ cubeB.castShadow = true;
 cubeA.receiveShadow = false;
 cubeB.receiveShadow = false;
 cubeA.position.set(0,1+Math.sqrt(3)/2,0);
+const quaternion = new THREE.Quaternion().random();
+cubeA.applyQuaternion(quaternion);
 cubeB.position.set(
     cubeA.position.x + relX,
     cubeA.position.y + relY,
     cubeA.position.z + relZ 
 );
-cubeB.quaternion.x = qX;
-cubeB.quaternion.y = qY;
-cubeB.quaternion.z = qZ;
-cubeB.quaternion.w = qW;
+cubeB.applyQuaternion(quaternion);
+cubeB.quaternion.set(
+    relQuatX,
+    relQuatY,
+    relQuatZ,
+    relQuatW,
+)
 scene.add(cubeA);
 scene.add(cubeB);
 
