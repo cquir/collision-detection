@@ -1,55 +1,6 @@
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { OrbitControls } from './OrbitControls.js'
 
-/*
-const relX = (1+Math.sqrt(3))*(Math.random()-0.5);
-const relY = (1+Math.sqrt(3))*(Math.random()-0.5);
-const relZ = (1+Math.sqrt(3))*(Math.random()-0.5);
-function approxRandNormal(){
-    return ((
-      Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random())-3)/3
-}
-function approxRandNormal(){
-    return ((
-      Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random() 
-    + Math.random())-3)/3
-}
-
-const uX = approxRandNormal();
-const uY = approxRandNormal();
-const uZ = approxRandNormal();
-const scale = 1/Math.sqrt(uX**2+uY**2+uZ**2);
-const theta = 2*Math.PI*Math.random();
-
-const relQuatX = Math.cos(theta/2);
-const relQuatY = uX*scale*Math.sin(theta/2);
-const relQuatZ = uY*scale*Math.sin(theta/2);
-const relQuatW = uZ*scale*Math.sin(theta/2);
-
-async function main(){
-    const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
-    const data = Float32Array.from([relX,relY,relZ,relQuatX,relQuatY,relQuatZ,relQuatW]);
-    const tensor = new ort.Tensor('float32',data,[1,7]);
-    const feeds = {input: tensor};
-    const results = await session.run(feeds);
-    const output = results['output']['data'][0];
-    const prob = Math.round(10000/(1+Math.exp(-output)))/100;
-    document.getElementById("predictions").innerHTML = 'probability of collision = '+prob.toString()+' %';
-}
-main()
-*/
-
-// **************************************************************
-
 // scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xcbbeb5);
@@ -126,17 +77,19 @@ scene.add(cubeA);
 scene.add(cubeB);
 
 function update(){
-
+    // generate new example
     const quaternion = new THREE.Quaternion().random();
     const relativePosition = new THREE.Vector3().random().addScalar(-0.5).multiplyScalar(1+Math.sqrt(3));
     const relativeQuaternion = new THREE.Quaternion().random();
 
+    // update cubes' positions + rotations
     cubeA.position.set(0,1+Math.sqrt(3)/2,0);
     cubeA.quaternion.copy(quaternion);
     cubeB.position.copy(cubeA.position).add(relativePosition);
     cubeB.quaternion.copy(quaternion);
     cubeB.applyQuaternion(relativeQuaternion);
 
+    // update collision prediction
     async function main(){
         const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
         const data = Float32Array.from([
@@ -155,7 +108,6 @@ function update(){
         const prob = Math.round(10000/(1+Math.exp(-output)))/100;
         document.getElementById("predictions").innerHTML = 'probability of collision = '+prob.toString()+' %';
     }
-
     main()
 }
 
