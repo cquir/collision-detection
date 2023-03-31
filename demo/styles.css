@@ -16,10 +16,18 @@ body {
 }
 
 .text {
-    display: flex;
     position: absolute;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 90vh 0 0 0;
     width: 100%;
 }
+
+#instructions {
+    margin: 5vh 0 0 0;
+}
+
+#predictions {
+    margin: 95vh 0 0 0;
+}
+

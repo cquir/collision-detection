@@ -1,12 +1,19 @@
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { OrbitControls } from './OrbitControls.js'
 
-// **************************************************************
-
+/*
 const relX = (1+Math.sqrt(3))*(Math.random()-0.5);
 const relY = (1+Math.sqrt(3))*(Math.random()-0.5);
 const relZ = (1+Math.sqrt(3))*(Math.random()-0.5);
-
+function approxRandNormal(){
+    return ((
+      Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random())-3)/3
+}
 function approxRandNormal(){
     return ((
       Math.random() 
@@ -39,6 +46,7 @@ async function main(){
     document.getElementById("predictions").innerHTML = 'probability of collision = '+prob.toString()+' %';
 }
 main()
+*/
 
 // **************************************************************
 
@@ -63,7 +71,7 @@ window.addEventListener('resize', () =>
 
 // camera
 const camera = new THREE.PerspectiveCamera(25,sizes.width/sizes.height,0.1,100);
-camera.position.set(0,0,10);
+camera.position.set(0,0,20);
 
 // renderer
 const canvas = document.querySelector('canvas.webgl');
@@ -94,8 +102,6 @@ light.shadow.camera.bottom = -3;
 light.shadow.camera.right = 3;
 light.shadow.camera.left = -3;
 scene.add(light);
-//const helper = new THREE.CameraHelper(light.shadow.camera);
-//scene.add(helper);
 
 // plane
 const planeGeometry = new THREE.PlaneGeometry(100,100);
@@ -116,23 +122,50 @@ cubeA.castShadow = true;
 cubeB.castShadow = true;
 cubeA.receiveShadow = false;
 cubeB.receiveShadow = false;
-cubeA.position.set(0,1+Math.sqrt(3)/2,0);
-const quaternion = new THREE.Quaternion().random();
-cubeA.applyQuaternion(quaternion);
-cubeB.position.set(
-    cubeA.position.x + relX,
-    cubeA.position.y + relY,
-    cubeA.position.z + relZ 
-);
-cubeB.applyQuaternion(quaternion);
-cubeB.quaternion.set(
-    relQuatX,
-    relQuatY,
-    relQuatZ,
-    relQuatW,
-)
 scene.add(cubeA);
 scene.add(cubeB);
+
+function update(){
+
+    const quaternion = new THREE.Quaternion().random();
+    const relativePosition = new THREE.Vector3().random().addScalar(-0.5).multiplyScalar(1+Math.sqrt(3));
+    const relativeQuaternion = new THREE.Quaternion().random();
+
+    cubeA.position.set(0,1+Math.sqrt(3)/2,0);
+    cubeA.quaternion.copy(quaternion);
+    cubeB.position.copy(cubeA.position).add(relativePosition);
+    cubeB.quaternion.copy(quaternion);
+    cubeB.applyQuaternion(relativeQuaternion);
+
+    async function main(){
+        const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
+        const data = Float32Array.from([
+            relativePosition.x,
+            relativePosition.y,
+            relativePosition.z,
+            relativeQuaternion.x,
+            relativeQuaternion.y,
+            relativeQuaternion.z,
+            relativeQuaternion.w
+        ]);
+        const tensor = new ort.Tensor('float32',data,[1,7]);
+        const feeds = {input: tensor};
+        const results = await session.run(feeds);
+        const output = results['output']['data'][0];
+        const prob = Math.round(10000/(1+Math.exp(-output)))/100;
+        document.getElementById("predictions").innerHTML = 'probability of collision = '+prob.toString()+' %';
+    }
+
+    main()
+}
+
+update();
+
+document.addEventListener('keyup', event => {
+    if (event.code === 'Space'){
+        update();
+    }
+})
 
 // animate
 function animate() {
