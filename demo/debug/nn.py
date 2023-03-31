@@ -1,1 +1,0 @@
-/home/cquir/Documents/collision-detection/src/nn.py

@@ -2,15 +2,35 @@ import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { OrbitControls } from './OrbitControls.js'
 
 // **************************************************************
-// NEXT: feed cubeB's quaternion (as relative quaternion)
 
 const relX = (1+Math.sqrt(3))*(Math.random()-0.5);
 const relY = (1+Math.sqrt(3))*(Math.random()-0.5);
 const relZ = (1+Math.sqrt(3))*(Math.random()-0.5);
 
+function approxRandNormal(){
+    return ((
+      Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random() 
+    + Math.random()) - 3) / 3
+}
+
+const uX = approxRandNormal();
+const uY = approxRandNormal();
+const uZ = approxRandNormal();
+const scale = 1/Math.sqrt(uX**2+uY**2+uZ**2);
+const theta = 2*Math.PI*Math.random();
+
+const qX = Math.cos(theta/2);
+const qY = uX*scale*Math.sin(theta/2);
+const qZ = uY*scale*Math.sin(theta/2);
+const qW = uZ*scale*Math.sin(theta/2);
+
 async function main(){
     const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
-    const data = Float32Array.from([relX,relY,relZ,0,0,0,0]);
+    const data = Float32Array.from([relX,relY,relZ,qX,qY,qZ,qW]);
     const tensor = new ort.Tensor('float32',data,[1,7]);
     const feeds = {input: tensor};
     const results = await session.run(feeds);
@@ -103,6 +123,10 @@ cubeB.position.set(
     cubeA.position.y + relY,
     cubeA.position.z + relZ 
 );
+cubeB.quaternion.x = qX;
+cubeB.quaternion.y = qY;
+cubeB.quaternion.z = qZ;
+cubeB.quaternion.w = qW;
 scene.add(cubeA);
 scene.add(cubeB);
 
