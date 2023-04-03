@@ -1,5 +1,3 @@
-import scipy.spatial
-import subprocess
 import collide
 import numpy
 import click
