@@ -45,7 +45,7 @@ def evaluate_model(args,train_loader,val_loader):
 			scheduler.step()
 			
 	# evaluate the neural network's performance
-	def test(test_loader,dataset_label,batch_size):
+	def test(test_loader,batch_size):
 		model.eval()
 		test_loss = 0
 		correct = 0
@@ -63,8 +63,8 @@ def evaluate_model(args,train_loader,val_loader):
 	# main loop
 	while epoch < args['epochs']+1:
 		train()
-		train_loss, train_accuracy = test(train_loader,'Training',args['batch_size'])
-		val_loss, val_accuracy = test(val_loader,'Validation',args['test_batch_size'])
+		train_loss, train_accuracy = test(train_loader,args['batch_size'])
+		val_loss, val_accuracy = test(val_loader,args['test_batch_size'])
 		# log results
 		wandb.log({
 			'Train loss':train_loss,
