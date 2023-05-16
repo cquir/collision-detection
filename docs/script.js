@@ -95,7 +95,7 @@ function update(){
 
     // update collision prediction
     async function main(){
-        const session = await ort.InferenceSession.create('model-sleek-breeze-268.onnx');
+        const session = await ort.InferenceSession.create('model-lemon-sky-347.onnx');
         const data = Float32Array.from([
             relativePosition.x,
             relativePosition.y,
