@@ -73,21 +73,25 @@ cubeA.castShadow = true;
 cubeB.castShadow = true;
 cubeA.receiveShadow = false;
 cubeB.receiveShadow = false;
-scene.add(cubeA);
-scene.add(cubeB);
+
+// group
+const group = new THREE.Group();
+group.add(cubeA);
+group.add(cubeB);
+scene.add(group);
+group.position.set(0,1+Math.sqrt(3)/2,0);
 
 function update(){
     // generate new example
-    const quaternion = new THREE.Quaternion().random();
     const relativePosition = new THREE.Vector3().random().addScalar(-0.5).multiplyScalar(1+Math.sqrt(3));
     const relativeQuaternion = new THREE.Quaternion().random();
+    const groupQuaternion = new THREE.Quaternion().random();
 
     // update cubes' positions + rotations
-    cubeA.position.set(0,1+Math.sqrt(3)/2,0);
-    cubeA.quaternion.copy(quaternion);
-    cubeB.position.copy(cubeA.position).add(relativePosition);
-    cubeB.quaternion.copy(quaternion);
+    cubeB.position.copy(new THREE.Vector3()).add(relativePosition);
+    cubeB.quaternion.copy(new THREE.Quaternion());
     cubeB.applyQuaternion(relativeQuaternion);
+    group.quaternion.copy(groupQuaternion);
 
     // update collision prediction
     async function main(){
